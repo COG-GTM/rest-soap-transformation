@@ -18,7 +18,8 @@ public class NumberToWordsJsonProcessor implements Processor {
         List<?> result = exchange.getIn().getMandatoryBody(List.class);
         JSONObject json = new JSONObject();
         for (Object value : result) {
-            String text = value == null ? "" : value.toString();
+            // XMLSerializer read the XML line by line, dropping line breaks.
+            String text = value == null ? "" : value.toString().replace("\r", "").replace("\n", "");
             if (text.isEmpty()) {
                 json.accumulate("item", new JSONArray());
             } else {
