@@ -16,6 +16,7 @@
             <ref bean="gZipOutInterceptor"/>
         </camel-cxf:outInterceptors>
     </camel-cxf:cxfEndpoint>
+    <bean class="com.example.NumberToWordsJsonProcessor" id="numberToWordsJson"/>
     <bean
         class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" id="bean-66d2672d-c6c0-4984-bc31-90bc30bfaaef"/>
     <camelContext id="_camelContext1"
@@ -60,8 +61,7 @@
                 <constant>NumberToWords</constant>
             </setHeader>
             <to id="_to1" uri="cxf:bean:numberConversionClient"/>
-            <marshal id="_marshal1" ref="jack"/>
-            <marshal id="_marshal2" ref="xmljson"/>
+            <process id="_process1" ref="numberToWordsJson"/>
             <removeHeaders id="_removeHeaders2" pattern="*"/>
         </route>
     </camelContext>
