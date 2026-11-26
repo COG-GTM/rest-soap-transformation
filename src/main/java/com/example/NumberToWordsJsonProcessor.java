@@ -32,9 +32,9 @@ public class NumberToWordsJsonProcessor implements Processor {
         exchange.getIn().setBody(json.toString());
     }
 
-    // XMLSerializer read the XML line by line (dropping line breaks) and rendered an empty element as [].
+    // XMLSerializer read the XML line by line (dropping raw line feeds; jacksonxml escapes CR) and rendered an empty element as [].
     private static Object toJsonValue(Object value) {
-        String text = value == null ? "" : value.toString().replace("\r", "").replace("\n", "");
+        String text = value == null ? "" : value.toString().replace("\n", "");
         return text.isEmpty() ? new JSONArray() : text;
     }
 }
